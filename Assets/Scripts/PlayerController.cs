@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent becomeSpirit;
     Rigidbody rb;
+    Animator animator;
     Vector3 movement = Vector3.zero;
     bool isSpirit = false;
 
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         if (becomeSpirit == null)
         {
             becomeSpirit = new UnityEvent();
@@ -36,11 +38,25 @@ public class PlayerController : MonoBehaviour
     private void ProcessInput()
     {
         movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if (
+            Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) ||
+            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ||
+            Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ||
+            Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void Move()
     {
+        var newPosition = transform.position + movement.normalized;
         rb.MovePosition(transform.position + movement.normalized * speed * Time.deltaTime);
+        transform.LookAt(newPosition);
     }
 
     void OnTriggerEnter(Collider other)
