@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
             // TODO: Kill player, enable spirit realm
             becomeSpirit.Invoke();
             isSpirit = true;
+            animator.SetBool("isDead", true);
         }
         else if (other.gameObject.tag == "RejuvenationFlame" && isSpirit)
         {
