@@ -9,15 +9,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent becomeSpirit;
     Rigidbody rb;
+    CharacterController characterController;
     Animator animator;
     Vector3 movement = Vector3.zero;
+    bool canMove = true;
     bool isSpirit = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        // animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         if (becomeSpirit == null)
         {
             becomeSpirit = new UnityEvent();
@@ -54,9 +57,12 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        var newPosition = transform.position + movement.normalized;
-        rb.MovePosition(transform.position + movement.normalized * speed * Time.deltaTime);
-        transform.LookAt(newPosition);
+        if (canMove)
+        {
+            var newPosition = transform.position + movement.normalized;
+            rb.MovePosition(transform.position + movement.normalized * speed * Time.deltaTime);
+            transform.LookAt(newPosition);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -65,6 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             // TODO: Kill player, enable spirit realm
             becomeSpirit.Invoke();
+            canMove = false;
             isSpirit = true;
             animator.SetBool("isDead", true);
         }
