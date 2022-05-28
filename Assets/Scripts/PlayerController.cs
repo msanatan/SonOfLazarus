@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent becomeSpirit;
-    [SerializeField] Animator flashScreenAnimator;
+    [SerializeField] GameObject flashScreen;
     Rigidbody rb;
     Animator animator;
     Vector3 movement = Vector3.zero;
@@ -83,7 +83,8 @@ public class PlayerController : MonoBehaviour
 
     public void BecomeSpirit()
     {
-        flashScreenAnimator.SetBool("isSpirit", true);
+        flashScreen.SetActive(true);
+        flashScreen.GetComponent<Animator>().SetBool("isSpirit", true);
         animator.SetBool("isSpirit", true);
     }
 
