@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent becomeSpirit;
+    [SerializeField] Animator flashScreenAnimator;
     Rigidbody rb;
-    CharacterController characterController;
     Animator animator;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
@@ -19,8 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        // animator = GetComponent<Animator>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
         if (becomeSpirit == null)
         {
             becomeSpirit = new UnityEvent();
@@ -69,7 +68,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "DeadlyObstacle" && !isSpirit)
         {
-            // TODO: Kill player, enable spirit realm
             becomeSpirit.Invoke();
             canMove = false;
             isSpirit = true;
@@ -81,5 +79,16 @@ public class PlayerController : MonoBehaviour
             becomeSpirit.Invoke();
             isSpirit = false;
         }
+    }
+
+    public void BecomeSpirit()
+    {
+        flashScreenAnimator.SetBool("isSpirit", true);
+        animator.SetBool("isSpirit", true);
+    }
+
+    public void SpiritReady()
+    {
+        canMove = true;
     }
 }
