@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent toggleSpiritWorld;
     [SerializeField] GameObject flashScreen;
+    [SerializeField] GameObject doorScreen;
     CharacterController characterController;
     Animator animator;
     Animator flashScreenAnimator;
+    Animator doorAnimator;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
     bool isSpirit = false;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         flashScreenAnimator = flashScreen.GetComponent<Animator>();
+        doorAnimator = doorScreen.GetComponent<Animator>();
         if (toggleSpiritWorld == null)
         {
             toggleSpiritWorld = new UnityEvent();
@@ -87,6 +90,12 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRevived", true);
             flashScreenAnimator.SetBool("isSpirit", false);
             flashScreenAnimator.SetBool("isHuman", true);
+        }
+        else if (other.gameObject.tag == "Door" && !isSpirit)
+        {
+            canMove = false;
+            doorScreen.SetActive(true);
+            doorAnimator.SetBool("reachedDoor", true);
         }
     }
 
