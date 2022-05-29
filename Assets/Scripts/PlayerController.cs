@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isDead", true);
             animator.SetBool("isRevived", false);
         }
-        else if (other.gameObject.tag == "RejuvenationFlame" && isSpirit)
+        else if (other.gameObject.tag == "ReviveLight" && isSpirit)
         {
             toggleSpiritWorld.Invoke();
             canMove = false;

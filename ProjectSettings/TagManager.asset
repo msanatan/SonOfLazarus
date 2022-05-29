@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - SpiritRealm
-  - RejuvenationFlame
   - DeadlyObstacle
   - Ground
+  - ReviveLight
   layers:
   - Default
   - TransparentFX
