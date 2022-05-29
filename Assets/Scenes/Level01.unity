@@ -828,7 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  becomeSpirit:
+  toggleSpiritWorld:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1866831844}
