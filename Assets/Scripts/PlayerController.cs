@@ -61,7 +61,9 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             var newPosition = transform.position + movement.normalized;
-            characterController.SimpleMove(movement.normalized * speed);
+            if (Physics.CheckSphere(newPosition, 0.5f)) {
+                characterController.SimpleMove(movement.normalized * speed);
+            }
             transform.LookAt(newPosition);
         }
     }
