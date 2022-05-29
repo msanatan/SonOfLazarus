@@ -7,10 +7,11 @@ using UnityEngine.Events;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
-    [SerializeField] UnityEvent becomeSpirit;
+    [SerializeField] UnityEvent toggleSpiritWorld;
     [SerializeField] GameObject flashScreen;
     CharacterController characterController;
     Animator animator;
+    Animator flashScreenAnimator;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
     bool isSpirit = false;
@@ -20,9 +21,10 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        if (becomeSpirit == null)
+        flashScreenAnimator = flashScreen.GetComponent<Animator>();
+        if (toggleSpiritWorld == null)
         {
-            becomeSpirit = new UnityEvent();
+            toggleSpiritWorld = new UnityEvent();
         }
     }
 
@@ -68,28 +70,41 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "DeadlyObstacle" && !isSpirit)
         {
-            becomeSpirit.Invoke();
+            toggleSpiritWorld.Invoke();
             canMove = false;
             isSpirit = true;
             animator.SetBool("isDead", true);
+            animator.SetBool("isRevived", false);
         }
         else if (other.gameObject.tag == "RejuvenationFlame" && isSpirit)
         {
-            // TODO: Kill player, enable spirit realm
-            becomeSpirit.Invoke();
+            toggleSpiritWorld.Invoke();
+            canMove = false;
             isSpirit = false;
+            animator.SetBool("isDead", false);
+            animator.SetBool("isRevived", true);
+            flashScreenAnimator.SetBool("isSpirit", false);
+            flashScreenAnimator.SetBool("isHuman", true);
         }
     }
 
     public void BecomeSpirit()
     {
         flashScreen.SetActive(true);
-        flashScreen.GetComponent<Animator>().SetBool("isSpirit", true);
-        animator.SetBool("isSpirit", true);
+        flashScreenAnimator.SetBool("isSpirit", true);
+        flashScreenAnimator.SetBool("isHuman", false);
     }
 
     public void SpiritReady()
     {
         canMove = true;
+        animator.SetBool("isDead", false);
+    }
+
+    public void HumanReady()
+    {
+        flashScreen.SetActive(false);
+        canMove = true;
+        animator.SetBool("isRevived", false);
     }
 }
