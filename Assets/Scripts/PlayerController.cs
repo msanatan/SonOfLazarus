@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent becomeSpirit;
     [SerializeField] GameObject flashScreen;
-    Rigidbody rb;
+    CharacterController characterController;
     Animator animator;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         if (becomeSpirit == null)
         {
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             var newPosition = transform.position + movement.normalized;
-            rb.MovePosition(transform.position + movement.normalized * speed * Time.deltaTime);
+            characterController.SimpleMove(movement.normalized * speed);
             transform.LookAt(newPosition);
         }
     }
