@@ -7,39 +7,44 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] Animator nextLevelAnimator;
     // [SerializeField] AudioClip menuSelect;
     // [SerializeField] AudioClip levelComplete;
-    // [SerializeField] AudioClip reloadLevel;
 
     public float transitionTime = 1f;
-    private static bool reloadAnim = false;
-    private AudioSource audioSource;
+    AudioSource audioSource;
+    MusicManager musicManager;
+    int lastSceneIdx;
+    int currentSceneIdx;
 
-    private void Awake()
+    void Awake()
     {
-        // nextLevelAnimator.SetBool("levelStart", true);
-        // nextLevelAnimator.SetTrigger("End");
         audioSource = GetComponent<AudioSource>();
+    }
+
+    void Start()
+    {
+        lastSceneIdx = SceneManager.GetSceneByName("GameOver").buildIndex;
+        currentSceneIdx = SceneManager.GetActiveScene().buildIndex;
+        var musicManagerObj = GameObject.Find("MusicManager");
+        musicManager = musicManagerObj.GetComponent<MusicManager>();
+        if (currentSceneIdx == 0 || currentSceneIdx == lastSceneIdx)
+        {
+            musicManager.SwitchMusic("Menu");
+        }
+        else
+        {
+            musicManager.SwitchMusic("Game");
+        }
     }
 
     public void LoadNextScene()
     {
         // audioSource.PlayOneShot(menuSelect);
-        reloadAnim = false;
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        StartCoroutine(LoadLevel(currentSceneIndex + 1));
+        StartCoroutine(LoadLevel(currentSceneIdx + 1));
     }
 
     public void LoadMainMenu()
     {
         // audioSource.PlayOneShot(menuSelect);
         StartCoroutine(LoadLevel(0));
-    }
-
-    public void ReloadLevel()
-    {
-        reloadAnim = true;
-        // audioSource.PlayOneShot(reloadLevel);
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        StartCoroutine(LoadLevel(currentSceneIndex));
     }
 
     IEnumerator LoadLevel(int levelIndex)
