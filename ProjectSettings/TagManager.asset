@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - ReviveLight
   - Door
+  - SpiritBarrier
   layers:
   - Default
   - TransparentFX
