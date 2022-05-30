@@ -716,7 +716,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SpiritSwitch, Assembly-CSharp
-        m_MethodName: ToggleVisibility
+        m_MethodName: AnimateWorldChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -729,7 +729,7 @@ MonoBehaviour:
   nextLevel:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 489851565023050716, guid: ee1aa5f80888f48f7b8d8c8fcb2a1d2c, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadNextScene
         m_Mode: 1
@@ -741,7 +741,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  flashScreen: {fileID: 8565254149822631350, guid: 153a1b2ca73cf42649ab643d32190fef, type: 3}
   energyBall: {fileID: 9197965386866871754, guid: ecfb3974259a04a4896dffa15a896ab4, type: 3}
   energyBallSpeed: 5
   energyBallWaitTime: 1

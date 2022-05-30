@@ -62602,11 +62602,4 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 4.6
-    functionName: BecomeSpirit
-    data: 
-    objectReferenceParameter: {fileID: 9100000, guid: fc49fa5817a6a49fd8aa9497ee047564, type: 2}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

@@ -14,6 +14,12 @@ public class Barrier : MonoBehaviour
     }
     public void ToggleVisibility()
     {
+        StartCoroutine(MakeVisible());
+    }
+
+    IEnumerator MakeVisible()
+    {
+        yield return new WaitForSeconds(2f);
         meshRenderer.enabled = true;
     }
 

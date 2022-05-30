@@ -9,13 +9,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent toggleSpiritWorld;
     [SerializeField] UnityEvent nextLevel;
-    [SerializeField] GameObject flashScreen;
     [SerializeField] GameObject energyBall;
     [SerializeField] float energyBallSpeed = 5f;
     [SerializeField] float energyBallWaitTime = 1f;
     CharacterController characterController;
     Animator animator;
-    Animator flashScreenAnimator;
     Transform energyBallSpawnPoint;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
@@ -27,7 +25,6 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        flashScreenAnimator = flashScreen.GetComponent<Animator>();
         energyBallSpawnPoint = gameObject.transform.Find("EnergyBallSpawnPoint");
 
         if (toggleSpiritWorld == null)
@@ -107,8 +104,6 @@ public class PlayerController : MonoBehaviour
             isSpirit = false;
             animator.SetBool("isDead", false);
             animator.SetBool("isRevived", true);
-            flashScreenAnimator.SetBool("isSpirit", false);
-            flashScreenAnimator.SetBool("isHuman", true);
         }
         else if (other.gameObject.tag == "Door" && !isSpirit)
         {
@@ -129,12 +124,12 @@ public class PlayerController : MonoBehaviour
         nextLevel.Invoke();
     }
 
-    public void BecomeSpirit()
-    {
-        flashScreen.SetActive(true);
-        flashScreenAnimator.SetBool("isSpirit", true);
-        flashScreenAnimator.SetBool("isHuman", false);
-    }
+    // public void BecomeSpirit()
+    // {
+    //     flashScreen.SetActive(true);
+    //     flashScreenAnimator.SetBool("isSpirit", true);
+    //     flashScreenAnimator.SetBool("isHuman", false);
+    // }
 
     public void SpiritReady()
     {
@@ -144,7 +139,6 @@ public class PlayerController : MonoBehaviour
 
     public void HumanReady()
     {
-        flashScreen.SetActive(false);
         canMove = true;
         animator.SetBool("isRevived", false);
     }
