@@ -10,6 +10,7 @@ TagManager:
   - ReviveLight
   - Door
   - SpiritBarrier
+  - EnergyBall
   layers:
   - Default
   - TransparentFX

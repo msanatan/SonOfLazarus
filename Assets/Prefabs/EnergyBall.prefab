@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 2323978980656678306}
   m_Layer: 0
   m_Name: EnergyBall
-  m_TagString: Untagged
+  m_TagString: EnergyBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +157,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9197965386866871754}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
