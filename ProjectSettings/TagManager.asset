@@ -11,6 +11,7 @@ TagManager:
   - Door
   - SpiritBarrier
   - EnergyBall
+  - BookOfLife
   layers:
   - Default
   - TransparentFX
