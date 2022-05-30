@@ -741,7 +741,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  flashScreen: {fileID: 0}
+  flashScreen: {fileID: 8565254149822631350, guid: 153a1b2ca73cf42649ab643d32190fef, type: 3}
   energyBall: {fileID: 9197965386866871754, guid: ecfb3974259a04a4896dffa15a896ab4, type: 3}
   energyBallSpeed: 5
   energyBallWaitTime: 1
