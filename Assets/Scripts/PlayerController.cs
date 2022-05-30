@@ -115,6 +115,18 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             nextLevel.Invoke();
         }
+        else if (other.gameObject.tag == "BookOfLife" && !isSpirit)
+        {
+            canMove = false;
+            animator.SetBool("isInteracting", true);
+            StartCoroutine(TouchBook());
+        }
+    }
+
+    IEnumerator TouchBook()
+    {
+        yield return new WaitForSeconds(1.5f);
+        nextLevel.Invoke();
     }
 
     public void BecomeSpirit()
