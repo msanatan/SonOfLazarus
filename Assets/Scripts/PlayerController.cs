@@ -10,13 +10,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] UnityEvent toggleSpiritWorld;
     [SerializeField] GameObject flashScreen;
     [SerializeField] GameObject doorScreen;
+    [SerializeField] GameObject energyBall;
+    [SerializeField] float energyBallSpeed = 5f;
+    [SerializeField] float energyBallWaitTime = 1f;
     CharacterController characterController;
     Animator animator;
     Animator flashScreenAnimator;
     Animator doorAnimator;
+    Transform energyBallSpawnPoint;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
     bool isSpirit = false;
+    bool canShoot = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +30,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         flashScreenAnimator = flashScreen.GetComponent<Animator>();
         doorAnimator = doorScreen.GetComponent<Animator>();
+        energyBallSpawnPoint = gameObject.transform.Find("EnergyBallSpawnPoint");
+
         if (toggleSpiritWorld == null)
         {
             toggleSpiritWorld = new UnityEvent();
@@ -53,6 +60,12 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", true);
         }
+        // else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && isSpirit && canShoot)
+        else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && canShoot)
+        {
+            canShoot = false;
+            animator.SetBool("isShooting", true);
+        }
         else
         {
             animator.SetBool("isRunning", false);
@@ -64,7 +77,8 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             var newPosition = transform.position + movement.normalized;
-            if (Physics.CheckSphere(newPosition, 0.5f)) {
+            if (Physics.CheckSphere(newPosition, 0.5f))
+            {
                 characterController.SimpleMove(movement.normalized * speed);
             }
             transform.LookAt(newPosition);
@@ -117,5 +131,21 @@ public class PlayerController : MonoBehaviour
         flashScreen.SetActive(false);
         canMove = true;
         animator.SetBool("isRevived", false);
+    }
+
+    public void Shoot()
+    {
+        animator.SetBool("isShooting", false);
+        var energyBallProjectile = Instantiate(energyBall, energyBallSpawnPoint.position, energyBallSpawnPoint.rotation);
+        energyBallProjectile.SetActive(true);
+        energyBallProjectile.GetComponent<Rigidbody>().velocity = energyBallSpawnPoint.forward * energyBallSpeed;
+        // energyBallProjectile.GetComponent<MeshCollider>().convex = true;
+        StartCoroutine(EnableShoot());
+    }
+
+    IEnumerator EnableShoot()
+    {
+        yield return new WaitForSeconds(energyBallWaitTime);
+        canShoot = true;
     }
 }
