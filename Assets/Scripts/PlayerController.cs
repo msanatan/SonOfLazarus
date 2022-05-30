@@ -60,8 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isRunning", true);
         }
-        // else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && isSpirit && canShoot)
-        else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && canShoot)
+        else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && isSpirit && canShoot)
         {
             canShoot = false;
             animator.SetBool("isShooting", true);
