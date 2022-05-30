@@ -24,14 +24,17 @@ public class SceneLoader : MonoBehaviour
         lastSceneIdx = SceneManager.GetSceneByName("GameOver").buildIndex;
         currentSceneIdx = SceneManager.GetActiveScene().buildIndex;
         var musicManagerObj = GameObject.Find("MusicManager");
-        musicManager = musicManagerObj.GetComponent<MusicManager>();
-        if (currentSceneIdx == 0 || currentSceneIdx == lastSceneIdx)
+        if (musicManagerObj != null)
         {
-            musicManager.SwitchMusic("Menu");
-        }
-        else
-        {
-            musicManager.SwitchMusic("Game");
+            musicManager = musicManagerObj.GetComponent<MusicManager>();
+            if (currentSceneIdx == 0 || currentSceneIdx == lastSceneIdx)
+            {
+                musicManager.SwitchMusic("Menu");
+            }
+            else
+            {
+                musicManager.SwitchMusic("Game");
+            }
         }
     }
 
