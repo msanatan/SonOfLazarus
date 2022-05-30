@@ -726,10 +726,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  nextLevel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   flashScreen: {fileID: 0}
-  doorScreen: {fileID: 0}
   energyBall: {fileID: 9197965386866871754, guid: ecfb3974259a04a4896dffa15a896ab4, type: 3}
   energyBallSpeed: 5
+  energyBallWaitTime: 1
 --- !u!1 &6021330403320670076
 GameObject:
   m_ObjectHideFlags: 0

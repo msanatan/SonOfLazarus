@@ -8,15 +8,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 5f;
     [SerializeField] UnityEvent toggleSpiritWorld;
+    [SerializeField] UnityEvent nextLevel;
     [SerializeField] GameObject flashScreen;
-    [SerializeField] GameObject doorScreen;
     [SerializeField] GameObject energyBall;
     [SerializeField] float energyBallSpeed = 5f;
     [SerializeField] float energyBallWaitTime = 1f;
     CharacterController characterController;
     Animator animator;
     Animator flashScreenAnimator;
-    Animator doorAnimator;
     Transform energyBallSpawnPoint;
     Vector3 movement = Vector3.zero;
     bool canMove = true;
@@ -29,12 +28,16 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         flashScreenAnimator = flashScreen.GetComponent<Animator>();
-        doorAnimator = doorScreen.GetComponent<Animator>();
         energyBallSpawnPoint = gameObject.transform.Find("EnergyBallSpawnPoint");
 
         if (toggleSpiritWorld == null)
         {
             toggleSpiritWorld = new UnityEvent();
+        }
+
+        if (nextLevel == null)
+        {
+            nextLevel = new UnityEvent();
         }
     }
 
@@ -51,23 +54,26 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessInput()
     {
-        movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        if (
-            Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) ||
-            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ||
-            Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ||
-            Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (canMove)
         {
-            animator.SetBool("isRunning", true);
-        }
-        else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && isSpirit && canShoot)
-        {
-            canShoot = false;
-            animator.SetBool("isShooting", true);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
+            movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            if (
+                Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow) ||
+                Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ||
+                Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) ||
+                Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                animator.SetBool("isRunning", true);
+            }
+            else if ((Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.LeftShift)) && isSpirit && canShoot)
+            {
+                canShoot = false;
+                animator.SetBool("isShooting", true);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
         }
     }
 
@@ -107,8 +113,7 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.tag == "Door" && !isSpirit)
         {
             canMove = false;
-            doorScreen.SetActive(true);
-            doorAnimator.SetBool("reachedDoor", true);
+            nextLevel.Invoke();
         }
     }
 
@@ -138,7 +143,6 @@ public class PlayerController : MonoBehaviour
         var energyBallProjectile = Instantiate(energyBall, energyBallSpawnPoint.position, energyBallSpawnPoint.rotation);
         energyBallProjectile.SetActive(true);
         energyBallProjectile.GetComponent<Rigidbody>().velocity = energyBallSpawnPoint.forward * energyBallSpeed;
-        // energyBallProjectile.GetComponent<MeshCollider>().convex = true;
         StartCoroutine(EnableShoot());
     }
 
