@@ -2277,6 +2277,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6279451123411252256, guid: 116014eacbfe14c33a542ba87bfd7d34, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6279451123411252261, guid: 116014eacbfe14c33a542ba87bfd7d34, type: 3}
       propertyPath: activatedMaterial
       value: 
@@ -2345,6 +2349,10 @@ PrefabInstance:
       propertyPath: objectsToDestroy.Array.data[14]
       value: 
       objectReference: {fileID: 466350928}
+    - target: {fileID: 6279451123411252263, guid: 116014eacbfe14c33a542ba87bfd7d34, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6621556264301270543, guid: 116014eacbfe14c33a542ba87bfd7d34, type: 3}
       propertyPath: m_Name
       value: DiamondSwitch
@@ -2415,6 +2423,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8565254149822631344, guid: 153a1b2ca73cf42649ab643d32190fef, type: 3}
+      propertyPath: showInEditor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8565254149822631344, guid: 153a1b2ca73cf42649ab643d32190fef, type: 3}
       propertyPath: gameObjects.Array.size
       value: 3

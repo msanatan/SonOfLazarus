@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6279451123411252263}
   - component: {fileID: 6279451123411252256}
   - component: {fileID: 6279451123411252261}
+  - component: {fileID: 1841047995997861600}
   m_Layer: 0
   m_Name: DiamondSwitch
   m_TagString: Untagged
@@ -132,7 +133,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!64 &6279451123411252256
 MeshCollider:
@@ -143,7 +144,7 @@ MeshCollider:
   m_GameObject: {fileID: 6621556264301270543}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -163,3 +164,16 @@ MonoBehaviour:
   rotateSpeed: 0.5
   objectsToDestroy: []
   activatedMaterial: {fileID: 2100000, guid: dac86571f40c744ac8d4a3037fcb1ec5, type: 2}
+--- !u!65 &1841047995997861600
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6621556264301270543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 1, z: 0.6}
+  m_Center: {x: 0.05, y: 0.5, z: 0.05}
